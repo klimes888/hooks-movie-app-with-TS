@@ -1,6 +1,10 @@
-import React from "react";
+import React from 'react';
 
-const Header = props => {
+type Props = {
+  text: string;
+};
+
+const Header = (props: Props): JSX.Element => {
   return (
     <header className="App-header">
       <h2>{props.text}</h2>
