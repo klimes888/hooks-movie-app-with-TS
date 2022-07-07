@@ -1,46 +1,48 @@
-import React, { useReducer, useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 
+// components
 import Header from './Header';
 import Movie from './Movie';
-import spinner from '../assets/ajax-loader.gif';
 import Search from './Search';
-import { initialState, reducer } from '../store/reducer';
+
+// reducers
+import { IndexProvider } from '../store/reducer/IndexStore';
+
+// contexts
 import axios from 'axios';
+
+// icons
+import spinner from '../assets/ajax-loader.gif';
 
 const MOVIE_API_URL = 'https://www.omdbapi.com/?s=man&apikey=4a3b711b';
 
 type MovieType = { Poster?: string; Title: string; Year?: string };
 
 const App = (): JSX.Element => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const reducer = useContext(IndexProvider);
 
   useEffect(() => {
     axios.get(MOVIE_API_URL).then(jsonResponse => {
-      dispatch({
+      reducer?.dispatch({
         type: 'SEARCH_MOVIES_SUCCESS',
         payload: jsonResponse.data.Search,
       });
     });
   }, []);
 
-  // you can add this to the onClick listener of the Header component
-  const refreshPage = () => {
-    window.location.reload();
-  };
-
   const search = (searchValue: string): void => {
-    dispatch({
+    reducer?.dispatch({
       type: 'SEARCH_MOVIES_REQUEST',
     });
 
     axios(`https://www.omdbapi.com/?s=${searchValue}&apikey=4a3b711b`).then(jsonResponse => {
       if (jsonResponse.data.Response === 'True') {
-        dispatch({
+        reducer?.dispatch({
           type: 'SEARCH_MOVIES_SUCCESS',
           payload: jsonResponse.data.Search,
         });
       } else {
-        dispatch({
+        reducer?.dispatch({
           type: 'SEARCH_MOVIES_FAILURE',
           error: jsonResponse.data.Error,
         });
@@ -49,7 +51,8 @@ const App = (): JSX.Element => {
   };
 
   const imagesHandler = (): JSX.Element | JSX.Element[] => {
-    const { movies, errorMessage, loading } = state;
+    if(!reducer?.state) return <></>;
+    const { movies, errorMessage, loading } = reducer.state;
 
     if (loading && !errorMessage) {
       return <img className="spinner" src={spinner} alt="Loading spinner" />;

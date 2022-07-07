@@ -1,24 +1,18 @@
 type Movies = Array<{Title: string}>
 
-type ReducerType = {
+export type ReducerType = {
   loading?: boolean,
   movies: Movies | never[],
   errorMessage?: string | null
 }
 
-type Actions = 
+export type Actions = 
 | 
 {type: 'SEARCH_MOVIES_REQUEST'} 
 | 
 {type: 'SEARCH_MOVIES_SUCCESS', payload: Movies} 
 |
 {type: 'SEARCH_MOVIES_FAILURE', error: string} 
-
-export const initialState = {
-  loading: true,
-  movies: [],
-  errorMessage: null
-};
 
 export const reducer = (state: ReducerType, action: Actions): ReducerType => {
   switch (action.type) {
