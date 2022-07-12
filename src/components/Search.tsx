@@ -24,8 +24,8 @@ const Search = ({ search }: SearchType): JSX.Element => {
 
   return (
     <form className="search">
-      <input value={searchValue} onChange={handleSearchInputChanges} type="text" />
-      <input onClick={callSearchFunction} type="submit" value="SEARCH" />
+      <input value={searchValue} onChange={handleSearchInputChanges} type="text" data-testid="change_value" />
+      <input onClick={callSearchFunction} type="submit" value="SEARCH" data-testid="send_button" />
     </form>
   );
 };

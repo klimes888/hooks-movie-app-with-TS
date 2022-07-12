@@ -6,7 +6,7 @@ import Movie from './Movie';
 import Search from './Search';
 
 // reducers
-import { IndexProvider } from '../store/reducer/IndexStore';
+import { useMovieState } from '../store/reducer/IndexStore';
 
 // contexts
 import axios from 'axios';
@@ -19,11 +19,11 @@ const MOVIE_API_URL = 'https://www.omdbapi.com/?s=man&apikey=4a3b711b';
 type MovieType = { Poster?: string; Title: string; Year?: string };
 
 const App = (): JSX.Element => {
-  const reducer = useContext(IndexProvider);
+  const { state, dispatch } = useMovieState();
 
   useEffect(() => {
-    axios.get(MOVIE_API_URL).then(jsonResponse => {
-      reducer?.dispatch({
+    axios(MOVIE_API_URL).then((jsonResponse) => {
+      dispatch({
         type: 'SEARCH_MOVIES_SUCCESS',
         payload: jsonResponse.data.Search,
       });
@@ -31,18 +31,18 @@ const App = (): JSX.Element => {
   }, []);
 
   const search = (searchValue: string): void => {
-    reducer?.dispatch({
+    dispatch({
       type: 'SEARCH_MOVIES_REQUEST',
     });
 
-    axios(`https://www.omdbapi.com/?s=${searchValue}&apikey=4a3b711b`).then(jsonResponse => {
+    axios(`https://www.omdbapi.com/?s=${searchValue}&apikey=4a3b711b`).then((jsonResponse) => {
       if (jsonResponse.data.Response === 'True') {
-        reducer?.dispatch({
+        dispatch({
           type: 'SEARCH_MOVIES_SUCCESS',
           payload: jsonResponse.data.Search,
         });
       } else {
-        reducer?.dispatch({
+        dispatch({
           type: 'SEARCH_MOVIES_FAILURE',
           error: jsonResponse.data.Error,
         });
@@ -51,11 +51,9 @@ const App = (): JSX.Element => {
   };
 
   const imagesHandler = (): JSX.Element | JSX.Element[] => {
-    if(!reducer?.state) return <></>;
-    const { movies, errorMessage, loading } = reducer.state;
-
+    const { movies, errorMessage, loading } = state;
     if (loading && !errorMessage) {
-      return <img className="spinner" src={spinner} alt="Loading spinner" />;
+      return <img className="spinner" src={spinner} alt="Loading spinner" data-testid="test_img" />;
     } else if (errorMessage) {
       return <div className="errorMessage">{errorMessage}</div>;
     } else {

@@ -7,7 +7,7 @@ type Props = {
 const Header = (props: Props): JSX.Element => {
   return (
     <header className="App-header">
-      <h2>{props.text}</h2>
+      <h2 role="header">{props.text}</h2>
     </header>
   );
 };
