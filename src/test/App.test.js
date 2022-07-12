@@ -17,10 +17,6 @@ const AppTest = ({ state }) => {
 };
 
 describe('App Component Render Test', () => {
-  afterEach(() => {
-    jest.restoreAllMocks();
-  });
-
   it('App Describe Text Render Test', async () => {
     const { result } = renderHook(() => useReducer(reducer, initialState));
     const [, dispatch] = result.current;
@@ -35,12 +31,9 @@ describe('App Component Render Test', () => {
     expect(screen.getByText(result.current[0].errorMessage).textContent).toBe('error');
 
     const mockAxios = jest.spyOn(axios, 'get');
-    console.log(mockAxios);
-    // mockAxios.mockImplementation(() => {})
 
     // SEARCH_MOVIES_REQUEST
     act(() => {
-      // dispatch({ type: 'SEARCH_MOVIES_SUCCESS', payload: [{ Poster: 'string', Title: 'string', Year: '' }] });
       dispatch({ type: 'SEARCH_MOVIES_REQUEST' });
     });
 
