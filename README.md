@@ -1,47 +1,39 @@
 # Hooks Movie App
-This is the demo application using React Hooks!!!
-
-The article containing instructions on how to build this app can be found [here](https://www.freecodecamp.org/news/how-to-build-a-movie-search-app-using-react-hooks-24eb72ddfaf7/)
-
-# Getting Started
-These instructions should get you a copy of the project up and running on your local machine for development and testing purposes.
-
-# Prerequisites
-Things you need to get started:
-- A recent version of Node running on your machine (8.0 or higher), check this [link](https://nodejs.org/en/download/) to download it.
-- A cool text editor, I recommend using either [VSCode](https://code.visualstudio.com/download) or [Atom(with the nuclide plugin)](https://nuclide.io/docs/editor/setup/)
+기존 영화를 찾는 플랫폼 예제에서 TS와 테스팅 도구를 이용하여 마이그래이션 했습니다.
+의존되는 패키지나 config 설정이 많아서 쉽다고 할 수 없는 프로젝트였지만 한 번 해보니 나름 재밌는 작업이었습니다 ^^
 
 # Installing
-To get the project running, follow these steps:
-- Create a folder
--Enter/Navigate into that folder
+
+프로젝트를 실행하는 방법은 다음과 같습니다.
+1. 자신만의 폴더를 만드세요
 ```
 cd <folder-name>
 ```
 
-- Clone this repository:
+2. github에서 복사한 저장소 주소를 입력하여 클론해주세요
 ```
-git clone https://github.com/samie820/hooks-movie-app.git
+git clone https://github.com/klimes888/hooks-movie-app-with-TS.git
 ```
 
-- Install all the project's dependencies:
+3. root 폴더에서 터미널로 `yarn` 혹은 `npm install`로 패키지를 install 해줍니다.
 ```
 yarn or npm install
 ```
-- Once that's done, run the project:
+ 
+4. `yarn test`를 입력하여 모든 테스팅이 성공적으로 완료되는지 확인합니다.
 ```
-npm start or yarn start
+yarn test
 ```
 
-# Deployment
-The app can be deployed using either heroku or Netlify
+5. 이후 `yarn start`를 입력하여 3000 port로 프로젝트가 정상 동작하는지 확인합니다.
+```
+yarn start
+```
+ 
 
 # Built With
 - Javascript
-- React - (UI library)
+- Typescript
+- React
+- Jest
 
-# Contribution
-Please read the [CONTRIBUTING.md](#) file (Soon to be added) to see how you can contribute and add more features to the project.
-
-# Authors
-TODO: Add the Authors
